@@ -27,11 +27,20 @@ services:
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       SPRING_SQL_INIT_MODE: always
       SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
-
     ports:
       - "4000:4000"
     depends_on:
       - postgres
+    networks:
+      - internal
+
+  pm-billing-service:
+    image: pm-billing-service:latest
+    build: ./billing-service
+    container_name: pm-billing-service
+    ports:
+      - "4001:4001"
+      - "9001:9001"
     networks:
       - internal
 
